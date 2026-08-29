@@ -538,15 +538,11 @@ def list_failed_payments():
         # FAILED PAYMENTS
         # ----------------------------------------------------
 
-        payments = (
-            db.query(Payment)
-            .filter(
-                Payment.status == "failed"
-            )
-            .order_by(
-                Payment.id
-            )
-            .all()
+        payments = db.query(Payment).all()
+
+        print(
+             f"SUMMARY STATUS VALUES: {[p.status for p in payments]}",
+             flush=True,
         )
 
         print(
