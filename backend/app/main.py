@@ -4,7 +4,7 @@ from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
 
-from app.database import SessionLocal
+from app.database import SessionLocal, Base, engine
 from app.models.customer import Customer
 from app.models.merchant_policy import MerchantPolicy
 from app.models.payment import Payment
@@ -22,6 +22,7 @@ app = FastAPI(
     version="0.1.0",
     description="Payment recovery decision engine",
 )
+Base.metadata.create_all(bind=engine)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
