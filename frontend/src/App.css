@@ -1,0 +1,1967 @@
+/* =========================================================
+   DESIGN TOKENS
+   RecoveryOS — fintech decision-engine palette.
+   Ink navy for text/surfaces, electric blue for action,
+   money-green for recovered value, amber/red reserved
+   strictly for risk signals (never decoration).
+========================================================= */
+
+:root {
+  /* Surfaces */
+  --bg: #EEF1F7;
+  --surface: #FFFFFF;
+  --surface-sunken: #F6F8FC;
+  --surface-sunken-2: #F1F4F9;
+
+  /* Ink */
+  --ink-900: #0B1220;
+  --ink-700: #1E293B;
+  --ink-500: #55627A;
+  --ink-400: #7C879C;
+  --ink-300: #A6B0C1;
+  --ink-200: #DDE3ED;
+  --ink-100: #E9EDF4;
+
+  /* Brand / action */
+  --brand-600: #2153C7;
+  --brand-500: #2F6FED;
+  --brand-100: #E4ECFE;
+  --brand-050: #EFF4FF;
+
+  /* Semantic */
+  --success-700: #0B7A54;
+  --success-500: #0F9D6B;
+  --success-100: #DCF5EA;
+
+  --warning-700: #92400E;
+  --warning-500: #B45309;
+  --warning-100: #FCEEDA;
+
+  --danger-700: #8F241A;
+  --danger-500: #B42318;
+  --danger-100: #FBE4E1;
+
+  --violet-700: #5B3AA6;
+  --violet-500: #7047C2;
+  --violet-100: #EEE7FB;
+
+  /* Elevation */
+  --shadow-xs: 0 1px 2px rgba(11, 18, 32, 0.05);
+  --shadow-sm: 0 1px 3px rgba(11, 18, 32, 0.06), 0 1px 2px rgba(11, 18, 32, 0.04);
+  --shadow-md: 0 6px 16px rgba(11, 18, 32, 0.08), 0 2px 4px rgba(11, 18, 32, 0.04);
+  --shadow-lg: 0 20px 48px rgba(11, 18, 32, 0.16), 0 4px 12px rgba(11, 18, 32, 0.06);
+  --shadow-focus: 0 0 0 3px rgba(47, 111, 237, 0.18);
+
+  /* Radius */
+  --r-sm: 8px;
+  --r-md: 12px;
+  --r-lg: 16px;
+}
+
+/* =========================================================
+   GLOBAL RESET
+========================================================= */
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scrollbar-width: thin;
+  scrollbar-color: var(--ink-300) transparent;
+}
+
+body {
+  margin: 0;
+
+  font-family:
+    Inter,
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+
+  background: var(--bg);
+  color: var(--ink-900);
+
+  -webkit-font-smoothing: antialiased;
+}
+
+button,
+input,
+select {
+  font-family: inherit;
+}
+
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+.payment-link:focus-visible {
+  outline: none;
+  box-shadow: var(--shadow-focus);
+  border-radius: 6px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+    animation: none !important;
+  }
+}
+
+/* =========================================================
+   APP
+========================================================= */
+
+.app {
+  min-height: 100vh;
+  background: var(--bg);
+}
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.header {
+  height: 82px;
+
+  padding: 0 40px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  background: var(--ink-900);
+  border-bottom: 1px solid var(--ink-900);
+  box-shadow: var(--shadow-sm);
+
+  position: relative;
+}
+
+.header::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -3px;
+  height: 3px;
+  background: linear-gradient(90deg, var(--brand-500) 0%, var(--success-500) 100%);
+}
+
+.header h1 {
+  margin: 0;
+
+  color: #FFFFFF;
+
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.header p {
+  margin: 4px 0 0;
+
+  color: #9AA7C2;
+
+  font-size: 13px;
+}
+
+.status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  padding: 7px 14px;
+
+  background: rgba(15, 157, 107, 0.14);
+  border: 1px solid rgba(15, 157, 107, 0.3);
+  border-radius: 999px;
+
+  color: #6FE3B4;
+
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.status-dot {
+  width: 7px;
+  height: 7px;
+
+  border-radius: 50%;
+
+  background: var(--success-500);
+  box-shadow: 0 0 0 3px rgba(15, 157, 107, 0.25);
+}
+
+/* =========================================================
+   MAIN
+========================================================= */
+
+main {
+  width: 100%;
+  max-width: 1500px;
+
+  margin: 0 auto;
+
+  padding: 32px 40px 50px;
+}
+
+/* =========================================================
+   METRICS
+========================================================= */
+
+.metrics {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+
+  gap: 18px;
+}
+
+.metric,
+.card {
+  background: var(--surface);
+
+  border: 1px solid var(--ink-100);
+  border-radius: var(--r-md);
+  box-shadow: var(--shadow-sm);
+}
+
+.metric {
+  position: relative;
+
+  padding: 22px 22px 22px 26px;
+  overflow: hidden;
+
+  transition: box-shadow 0.18s ease, transform 0.18s ease;
+}
+
+.metric:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-1px);
+}
+
+.metric::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 4px;
+  background: var(--brand-500);
+}
+
+/* Semantic left-accent per metric: failed count (danger),
+   failed value (danger), avg probability (amber), expected
+   recovery (money-green) — order matches the dashboard. */
+
+.metrics .metric:nth-child(1)::before { background: var(--danger-500); }
+.metrics .metric:nth-child(2)::before { background: var(--danger-500); }
+.metrics .metric:nth-child(3)::before { background: var(--warning-500); }
+.metrics .metric:nth-child(4)::before { background: var(--success-500); }
+
+.metric span {
+  display: block;
+
+  margin-bottom: 10px;
+
+  color: var(--ink-500);
+
+  font-size: 12.5px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+}
+
+.metric strong {
+  display: block;
+
+  color: var(--ink-900);
+
+  font-size: 27px;
+  font-weight: 750;
+  letter-spacing: -0.01em;
+  font-variant-numeric: tabular-nums;
+}
+
+/* =========================================================
+   CONTENT GRID
+========================================================= */
+
+.content-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+
+  gap: 18px;
+
+  margin-top: 18px;
+}
+
+.card {
+  overflow: hidden;
+}
+
+/* =========================================================
+   CARD HEADER
+========================================================= */
+
+.card-header {
+  padding: 18px 22px;
+
+  background: var(--surface);
+
+  border-bottom: 1px solid var(--ink-100);
+}
+
+.card-header h2 {
+  margin: 0;
+
+  color: var(--ink-900);
+
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: -0.005em;
+}
+
+.card-header p {
+  margin: 4px 0 0;
+
+  color: var(--ink-400);
+
+  font-size: 12px;
+}
+
+/* =========================================================
+   ACTIONS
+========================================================= */
+
+.action-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 15px 22px;
+
+  border-bottom: 1px solid var(--surface-sunken-2);
+
+  color: var(--ink-700);
+
+  font-size: 13.5px;
+
+  transition: background 0.15s ease;
+}
+
+.action-row:hover {
+  background: var(--surface-sunken);
+}
+
+.action-row strong {
+  color: var(--ink-900);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.action-row:last-child {
+  border-bottom: 0;
+}
+
+/* =========================================================
+   MODEL
+========================================================= */
+
+.model-card {
+  padding-bottom: 20px;
+}
+
+.model-card .card-header {
+  margin-bottom: 0;
+}
+
+.model-name {
+  padding: 20px 22px 4px;
+
+  color: var(--ink-900);
+
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.model-detail {
+  padding: 7px 22px;
+
+  color: var(--ink-500);
+
+  font-size: 13px;
+}
+
+.model-detail strong {
+  color: var(--ink-900);
+}
+
+.model-note {
+  margin: 14px 22px 0;
+  padding: 12px 14px;
+
+  background: var(--brand-050);
+  border: 1px solid var(--brand-100);
+  border-radius: var(--r-sm);
+
+  color: var(--brand-600);
+
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+/* =========================================================
+   PAYMENTS
+========================================================= */
+
+.payments-card {
+  margin-top: 18px;
+}
+
+.payments-card .card-header {
+  background: var(--surface);
+}
+
+/* =========================================================
+   FILTERS
+========================================================= */
+
+.filters {
+  display: grid;
+
+  grid-template-columns:
+    minmax(220px, 1.7fr)
+    minmax(150px, 1fr)
+    minmax(170px, 1.1fr)
+    minmax(120px, 0.8fr)
+    minmax(120px, 0.8fr)
+    auto;
+
+  gap: 12px;
+
+  padding: 16px 22px;
+
+  background: var(--surface-sunken);
+
+  border-bottom: 1px solid var(--ink-100);
+}
+
+.filter-group {
+  min-width: 0;
+}
+
+.filter-group label {
+  display: block;
+
+  margin-bottom: 6px;
+
+  color: var(--ink-500);
+
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+}
+
+.filter-group input,
+.filter-group select {
+  width: 100%;
+  height: 38px;
+
+  padding: 0 11px;
+
+  background: var(--surface);
+
+  border: 1px solid var(--ink-200);
+  border-radius: 7px;
+
+  outline: none;
+
+  color: var(--ink-700);
+
+  font-size: 12.5px;
+
+  transition:
+    border-color 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+.filter-group input:focus,
+.filter-group select:focus {
+  border-color: var(--brand-500);
+
+  box-shadow: var(--shadow-focus);
+}
+
+.filter-group input::placeholder {
+  color: var(--ink-300);
+}
+
+/* =========================================================
+   NUMBER INPUTS
+========================================================= */
+
+.filter-group input[type="number"] {
+  appearance: auto;
+  -webkit-appearance: auto;
+
+  color-scheme: light;
+
+  padding-right: 8px;
+}
+
+.filter-group input[type="number"]::-webkit-inner-spin-button,
+.filter-group input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: auto;
+
+  opacity: 1;
+
+  margin: 0;
+
+  filter: grayscale(1) contrast(2);
+}
+
+@-moz-document url-prefix() {
+  .filter-group input[type="number"] {
+    -moz-appearance: number-input;
+  }
+}
+
+/* =========================================================
+   CLEAR BUTTON
+========================================================= */
+
+.clear-button {
+  align-self: end;
+
+  height: 38px;
+
+  padding: 0 16px;
+
+  background: var(--surface);
+
+  border: 1px solid var(--ink-200);
+  border-radius: 7px;
+
+  color: var(--ink-500);
+
+  font-size: 12.5px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition:
+    background 0.15s ease,
+    border-color 0.15s ease,
+    color 0.15s ease;
+}
+
+.clear-button:hover:not(:disabled) {
+  background: var(--surface-sunken-2);
+
+  border-color: var(--ink-300);
+
+  color: var(--ink-900);
+}
+
+.clear-button:disabled {
+  opacity: 0.45;
+
+  cursor: not-allowed;
+}
+
+/* =========================================================
+   RESULTS BAR
+========================================================= */
+
+.results-bar {
+  min-height: 44px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 0 22px;
+
+  background: var(--surface);
+
+  border-bottom: 1px solid var(--ink-100);
+
+  color: var(--ink-400);
+
+  font-size: 12.5px;
+}
+
+.results-bar strong {
+  color: var(--ink-700);
+  font-variant-numeric: tabular-nums;
+}
+
+.filtered-label {
+  padding: 5px 10px;
+
+  background: var(--brand-050);
+
+  border-radius: 999px;
+
+  color: var(--brand-600);
+
+  font-size: 11px;
+  font-weight: 700;
+}
+
+/* =========================================================
+   PAYMENTS TABLE
+========================================================= */
+
+.table-wrapper {
+  width: 100%;
+
+  overflow-x: auto;
+
+  border-top: 1px solid var(--ink-100);
+
+  scrollbar-width: thin;
+  scrollbar-color: var(--ink-300) transparent;
+}
+
+.table-wrapper table {
+  width: 100%;
+  min-width: 850px;
+
+  border-collapse: collapse;
+
+  table-layout: fixed;
+}
+
+/* =========================================================
+   TABLE HEADER
+========================================================= */
+
+.table-wrapper th {
+  height: 46px;
+
+  padding: 0 18px;
+
+  background: var(--ink-900);
+
+  border-bottom: 1px solid var(--ink-900);
+
+  color: #AEB9D1;
+
+  font-size: 10.5px;
+  font-weight: 650;
+
+  letter-spacing: 0.06em;
+
+  text-align: left;
+  text-transform: uppercase;
+
+  white-space: nowrap;
+
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+/* =========================================================
+   TABLE BODY
+========================================================= */
+
+.table-wrapper td {
+  height: 58px;
+
+  padding: 0 18px;
+
+  background: var(--surface);
+
+  border-bottom: 1px solid var(--ink-100);
+
+  color: var(--ink-700);
+
+  font-size: 13px;
+  font-weight: 400;
+
+  vertical-align: middle;
+
+  white-space: nowrap;
+}
+
+.table-wrapper tbody tr:nth-child(even) td {
+  background: var(--surface-sunken);
+}
+
+.table-wrapper td:first-child {
+  font-weight: 600;
+  color: var(--ink-900);
+}
+
+/* =========================================================
+   TABLE COLUMN WIDTHS + ALIGNMENT
+========================================================= */
+
+/*
+   Widths sized to actual content, not an even split.
+   PAY_000032 / CUST_03432 are short and fixed-length;
+   ₹1,800.71 and 64.7% are short numerics; "Authentication
+   Failed" is the longest string in the table and gets the
+   room. This is what closes the dead gap that opened up
+   whenever a right-aligned numeric column was wider than
+   its content.
+*/
+
+.table-wrapper th:nth-child(1),
+.table-wrapper td:nth-child(1) {
+  width: 13%;
+  text-align: left;
+}
+
+.table-wrapper th:nth-child(2),
+.table-wrapper td:nth-child(2) {
+  width: 13%;
+  text-align: left;
+}
+
+.table-wrapper th:nth-child(3),
+.table-wrapper td:nth-child(3) {
+  width: 12%;
+  text-align: right;
+  padding-right: 28px;
+}
+
+.table-wrapper th:nth-child(4),
+.table-wrapper td:nth-child(4) {
+  width: 28%;
+  text-align: left;
+}
+
+.table-wrapper th:nth-child(5),
+.table-wrapper td:nth-child(5) {
+  width: 12%;
+  text-align: right;
+  padding-right: 28px;
+}
+
+.table-wrapper th:nth-child(6),
+.table-wrapper td:nth-child(6) {
+  width: 22%;
+  text-align: center;
+}
+
+/* =========================================================
+   PAYMENT LINK
+========================================================= */
+
+.payment-link {
+  margin: 0;
+  padding: 0;
+
+  border: 0;
+
+  background: transparent;
+
+  color: var(--brand-600);
+
+  font: inherit;
+  font-size: 13px;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  text-align: left;
+}
+
+.payment-link:hover {
+  color: var(--brand-500);
+  text-decoration: underline;
+}
+
+/* =========================================================
+   NUMERIC TABLE VALUES
+========================================================= */
+
+.table-wrapper td:nth-child(3),
+.table-wrapper td:nth-child(5) {
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+  color: var(--ink-900);
+}
+
+/* =========================================================
+   FAILURE TEXT
+========================================================= */
+
+.failure {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+
+  color: var(--danger-700);
+
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.failure::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--danger-500);
+  flex-shrink: 0;
+}
+
+/* =========================================================
+   ACTION BADGES
+========================================================= */
+
+.table-wrapper td:nth-child(6) .badge {
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+}
+
+/* =========================================================
+   TABLE HOVER
+========================================================= */
+
+.table-wrapper tbody tr {
+  transition: background 0.12s ease;
+}
+
+.table-wrapper tbody tr:hover td {
+  background: var(--brand-050);
+}
+
+/* =========================================================
+   LAST TABLE ROW
+========================================================= */
+
+.table-wrapper tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* =========================================================
+   EMPTY STATE
+========================================================= */
+
+.empty-state {
+  height: 100px !important;
+
+  color: var(--ink-400) !important;
+
+  font-size: 13px !important;
+
+  text-align: center !important;
+}
+
+/* =========================================================
+   TABLE SCROLLBAR
+========================================================= */
+
+.table-wrapper::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+
+.table-wrapper::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.table-wrapper::-webkit-scrollbar-thumb {
+  background: var(--ink-300);
+
+  border-radius: 10px;
+}
+
+.table-wrapper::-webkit-scrollbar-thumb:hover {
+  background: var(--ink-400);
+}
+
+.table-wrapper::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+/* =========================================================
+   BADGES
+   Semantic colors: link = brand, reminder = amber,
+   retry = violet, no-action = neutral.
+========================================================= */
+
+.badge {
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  padding: 5px 11px;
+
+  border-radius: 999px;
+
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+
+  white-space: nowrap;
+}
+
+.badge-send-payment-link {
+  background: var(--brand-100);
+  color: var(--brand-600);
+}
+
+.badge-send-reminder {
+  background: var(--warning-100);
+  color: var(--warning-700);
+}
+
+.badge-offer-retry {
+  background: var(--violet-100);
+  color: var(--violet-700);
+}
+
+.badge-no-action {
+  background: var(--ink-100);
+  color: var(--ink-500);
+}
+
+/* =========================================================
+   PAGINATION
+========================================================= */
+
+.pagination {
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: 8px;
+
+  padding: 16px 22px;
+
+  background: var(--surface);
+
+  border-top: 1px solid var(--ink-100);
+}
+
+.page-numbers {
+  display: flex;
+
+  align-items: center;
+
+  gap: 5px;
+}
+
+.page-button,
+.page-number {
+  height: 34px;
+
+  background: var(--surface);
+
+  border: 1px solid var(--ink-200);
+  border-radius: 7px;
+
+  color: var(--ink-500);
+
+  font-size: 12px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition:
+    background 0.15s ease,
+    border-color 0.15s ease,
+    color 0.15s ease;
+}
+
+.page-button {
+  padding: 0 12px;
+}
+
+.page-number {
+  width: 34px;
+}
+
+.page-button:hover:not(:disabled),
+.page-number:hover:not(.active) {
+  background: var(--surface-sunken-2);
+
+  border-color: var(--ink-300);
+
+  color: var(--ink-900);
+}
+
+.page-number.active {
+  background: var(--brand-500);
+
+  border-color: var(--brand-500);
+
+  color: #FFFFFF;
+
+  box-shadow: var(--shadow-sm);
+}
+
+.page-button:disabled {
+  opacity: 0.4;
+
+  cursor: not-allowed;
+}
+
+.page-ellipsis {
+  width: 24px;
+
+  color: var(--ink-300);
+
+  font-size: 12px;
+
+  text-align: center;
+}
+
+/* =========================================================
+   EVALUATION MODAL
+========================================================= */
+
+.evaluation-panel {
+  position: fixed;
+
+  z-index: 1000;
+
+  top: 50%;
+  left: 50%;
+
+  width: min(900px, calc(100vw - 40px));
+  max-height: 85vh;
+
+  transform: translate(-50%, -50%);
+
+  overflow-x: hidden;
+  overflow-y: auto;
+
+  background: var(--surface);
+
+  border: 1px solid var(--ink-100);
+  border-radius: var(--r-lg);
+
+  box-shadow:
+    0 0 0 100vmax rgba(11, 18, 32, 0.55),
+    var(--shadow-lg);
+
+  scrollbar-width: thin;
+  scrollbar-color: var(--ink-300) transparent;
+}
+
+.evaluation-panel::-webkit-scrollbar {
+  width: 8px;
+}
+
+.evaluation-panel::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.evaluation-panel::-webkit-scrollbar-thumb {
+  background: var(--ink-300);
+
+  border: 2px solid transparent;
+  border-radius: 10px;
+
+  background-clip: padding-box;
+}
+
+.evaluation-panel::-webkit-scrollbar-thumb:hover {
+  background: var(--ink-400);
+
+  border: 2px solid transparent;
+
+  background-clip: padding-box;
+}
+
+.evaluation-panel::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+/* =========================================================
+   EVALUATION HEADER
+========================================================= */
+
+.evaluation-header {
+  display: flex;
+
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 20px 24px;
+
+  background: var(--ink-900);
+
+  border-bottom: 1px solid var(--ink-900);
+  border-radius: var(--r-lg) var(--r-lg) 0 0;
+}
+
+.evaluation-header h2 {
+  margin: 0;
+
+  color: #FFFFFF;
+
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.evaluation-header p {
+  margin: 4px 0 0;
+
+  color: #9AA7C2;
+
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+}
+
+/* =========================================================
+   CLOSE BUTTON
+========================================================= */
+
+.close-button {
+  width: 32px;
+  height: 32px;
+
+  background: rgba(255, 255, 255, 0.08);
+
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 7px;
+
+  color: #C6CEE0;
+
+  font-size: 19px;
+  line-height: 1;
+
+  cursor: pointer;
+
+  transition:
+    background 0.15s ease,
+    color 0.15s ease,
+    border-color 0.15s ease;
+}
+
+.close-button:hover {
+  background: rgba(255, 255, 255, 0.16);
+
+  border-color: rgba(255, 255, 255, 0.24);
+
+  color: #FFFFFF;
+}
+
+/* =========================================================
+   EVALUATION LOADING / ERROR
+========================================================= */
+
+.evaluation-loading,
+.evaluation-error {
+  padding: 28px 22px;
+
+  font-size: 13px;
+}
+
+.evaluation-loading {
+  color: var(--ink-500);
+
+  text-align: center;
+}
+
+.evaluation-error {
+  color: var(--danger-700);
+}
+
+/* =========================================================
+   EVALUATION SUMMARY
+   Amount / Hybrid Probability / Recommended Action —
+   the three numbers a judge reads first.
+========================================================= */
+
+.evaluation-summary {
+  display: grid;
+
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+
+  gap: 1px;
+
+  background: var(--ink-100);
+
+  border-bottom: 1px solid var(--ink-100);
+}
+
+.evaluation-summary > div {
+  min-width: 0;
+
+  padding: 20px 22px;
+
+  background: var(--surface);
+
+  text-align: center;
+}
+
+.evaluation-summary > div:nth-child(2) {
+  background: var(--brand-050);
+}
+
+.evaluation-summary span,
+.evaluation-card span,
+.evaluation-details span,
+.evaluation-reason > span,
+.execution-success span,
+.event-row span {
+  display: block;
+
+  margin-bottom: 8px;
+
+  color: var(--ink-400);
+
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+.evaluation-summary strong {
+  display: inline-block;
+
+  color: var(--ink-900);
+
+  font-size: 22px;
+  font-weight: 750;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.01em;
+}
+
+.evaluation-summary > div:nth-child(2) strong {
+  color: var(--brand-600);
+}
+
+/* =========================================================
+   EVALUATION GRID
+   Rules / ML / Expected Value / Cost — color-coded so the
+   hybrid-model story reads at a glance, not just in text.
+========================================================= */
+
+.evaluation-grid {
+  display: grid;
+
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+
+  gap: 12px;
+
+  padding: 20px 22px;
+}
+
+.evaluation-card {
+  padding: 16px;
+
+  background: var(--surface-sunken);
+  border: 1px solid var(--ink-100);
+  border-radius: var(--r-sm);
+
+  text-align: center;
+}
+
+.evaluation-card strong {
+  color: var(--ink-900);
+
+  font-size: 17px;
+  font-weight: 750;
+  font-variant-numeric: tabular-nums;
+}
+
+.evaluation-grid .evaluation-card:nth-child(1) strong { color: var(--violet-500); }
+.evaluation-grid .evaluation-card:nth-child(2) strong { color: var(--brand-500); }
+.evaluation-grid .evaluation-card:nth-child(3) strong { color: var(--success-500); }
+.evaluation-grid .evaluation-card:nth-child(4) strong { color: var(--warning-500); }
+
+/* =========================================================
+   EVALUATION DETAILS
+========================================================= */
+
+.evaluation-details {
+  display: grid;
+
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+
+  gap: 18px;
+
+  padding: 0 22px 20px;
+
+  text-align: center;
+}
+
+.evaluation-details strong {
+  color: var(--ink-900);
+
+  font-size: 13px;
+  font-weight: 700;
+}
+
+/* =========================================================
+   DECISION REASON
+========================================================= */
+
+.evaluation-reason {
+  margin: 0 22px 22px;
+
+  padding: 16px 18px;
+
+  background: var(--surface-sunken);
+  border-left: 3px solid var(--brand-500);
+  border-radius: 0 var(--r-sm) var(--r-sm) 0;
+
+  text-align: left;
+}
+
+.evaluation-reason > span {
+  margin-bottom: 8px;
+}
+
+.evaluation-reason p {
+  margin: 0;
+
+  color: var(--ink-700);
+
+  font-size: 13.5px;
+
+  line-height: 1.55;
+}
+
+/* =========================================================
+   EXECUTION SECTION
+========================================================= */
+
+.execution-section {
+  margin: 0 22px 22px;
+
+  overflow: hidden;
+
+  background: var(--surface);
+
+  border: 1px solid var(--ink-100);
+  border-radius: var(--r-md);
+  box-shadow: var(--shadow-xs);
+}
+
+.execution-header {
+  display: grid;
+
+  grid-template-columns: 270px minmax(0, 1fr);
+
+  align-items: center;
+
+  gap: 28px;
+
+  padding: 22px;
+
+  background: var(--surface-sunken);
+  border-bottom: 1px solid var(--ink-100);
+}
+
+.execution-header > div:first-child {
+  text-align: center;
+}
+
+.execution-header > div:first-child > span {
+  display: block;
+
+  margin-bottom: 7px;
+
+  color: var(--ink-900);
+
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.execution-header p {
+  margin: 0;
+
+  color: var(--ink-500);
+
+  font-size: 12px;
+
+  line-height: 1.55;
+}
+
+/* =========================================================
+   EXECUTE BUTTON
+========================================================= */
+
+.execute-button {
+  width: 100%;
+  height: 42px;
+
+  padding: 0 18px;
+
+  background: var(--brand-500);
+
+  border: 0;
+  border-radius: 8px;
+  box-shadow: var(--shadow-sm);
+
+  color: #FFFFFF;
+
+  font-size: 12.5px;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+
+  cursor: pointer;
+
+  transition:
+    background 0.15s ease,
+    box-shadow 0.15s ease,
+    transform 0.1s ease;
+}
+
+.execute-button:hover:not(:disabled) {
+  background: var(--brand-600);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-1px);
+}
+
+.execute-button:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.execute-button:disabled {
+  background: var(--ink-200);
+
+  color: var(--ink-400);
+  box-shadow: none;
+
+  cursor: not-allowed;
+}
+
+/* =========================================================
+   NO ACTION
+========================================================= */
+
+.no-action-message {
+  margin: 0 22px 22px;
+
+  padding: 14px;
+
+  background: var(--surface-sunken);
+  border-radius: var(--r-sm);
+
+  color: var(--ink-500);
+
+  font-size: 12px;
+
+  text-align: center;
+}
+
+/* =========================================================
+   EXECUTION ERROR
+========================================================= */
+
+.execution-error {
+  margin: 0 22px 18px;
+
+  padding: 12px 14px;
+
+  background: var(--danger-100);
+  border: 1px solid rgba(180, 35, 24, 0.25);
+  border-radius: 7px;
+
+  color: var(--danger-700);
+
+  font-size: 12px;
+  font-weight: 500;
+}
+
+/* =========================================================
+   EXECUTION SUCCESS
+========================================================= */
+
+.execution-success {
+  display: grid;
+
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+
+  margin: 18px 22px 20px;
+
+  overflow: hidden;
+
+  background: var(--success-100);
+  border: 1px solid rgba(15, 157, 107, 0.3);
+  border-radius: var(--r-sm);
+}
+
+.execution-success > div {
+  min-width: 0;
+
+  padding: 16px 12px;
+
+  border-right: 1px solid rgba(15, 157, 107, 0.22);
+
+  text-align: center;
+}
+
+.execution-success > div:last-child {
+  border-right: 0;
+}
+
+.execution-success span {
+  color: var(--success-700);
+  opacity: 0.75;
+}
+
+.execution-success strong {
+  display: block;
+
+  color: var(--success-700);
+
+  font-size: 13.5px;
+  font-weight: 750;
+}
+
+/* =========================================================
+   EVENTS SECTION
+========================================================= */
+
+.events-section {
+  padding: 0 22px 22px;
+}
+
+.events-header {
+  display: flex;
+
+  align-items: flex-end;
+  justify-content: space-between;
+
+  padding: 18px 0;
+
+  border-top: 1px solid var(--ink-100);
+}
+
+.events-header > div > span {
+  display: block;
+
+  color: var(--ink-900);
+
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.events-header p {
+  margin: 4px 0 0;
+
+  color: var(--ink-400);
+
+  font-size: 12px;
+}
+
+.events-header > strong {
+  color: var(--ink-500);
+
+  font-size: 12px;
+}
+
+/* =========================================================
+   EVENTS LOADING / EMPTY
+========================================================= */
+
+.events-loading,
+.events-empty {
+  padding: 28px 20px;
+
+  background: var(--surface-sunken);
+  border: 1px dashed var(--ink-200);
+  border-radius: var(--r-sm);
+
+  color: var(--ink-400);
+
+  font-size: 12px;
+
+  text-align: center;
+}
+
+/* =========================================================
+   EVENT LIST
+========================================================= */
+
+.events-list {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 10px;
+}
+
+.event-row {
+  display: grid;
+
+  grid-template-columns:
+    minmax(190px, 1.4fr)
+    minmax(110px, 0.8fr)
+    minmax(140px, 1fr)
+    minmax(150px, 1fr);
+
+  align-items: center;
+
+  padding: 16px;
+
+  background: var(--surface);
+
+  border: 1px solid var(--ink-100);
+  border-radius: var(--r-sm);
+  box-shadow: var(--shadow-xs);
+
+  transition: box-shadow 0.15s ease;
+}
+
+.event-row:hover {
+  box-shadow: var(--shadow-sm);
+}
+
+.event-row > div {
+  min-width: 0;
+}
+
+.event-row > div:not(:first-child) {
+  text-align: center;
+}
+
+.event-row > div:first-child {
+  display: flex;
+
+  align-items: center;
+
+  gap: 9px;
+}
+
+.event-row > div:first-child span {
+  margin: 0;
+
+  color: var(--ink-400);
+
+  font-size: 11px;
+  text-transform: none;
+  font-weight: 500;
+  letter-spacing: normal;
+}
+
+.event-row strong {
+  color: var(--ink-900);
+
+  font-size: 13px;
+}
+
+.event-row .badge {
+  font-size: 10.5px;
+}
+
+/* =========================================================
+   GLOBAL SCROLLBARS
+========================================================= */
+
+html::-webkit-scrollbar {
+  width: 8px;
+}
+
+html::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+html::-webkit-scrollbar-thumb {
+  background: var(--ink-300);
+
+  border-radius: 10px;
+}
+
+html::-webkit-scrollbar-thumb:hover {
+  background: var(--ink-400);
+}
+
+/* =========================================================
+   LOADING / ERROR
+========================================================= */
+
+.loading,
+.error {
+  min-height: 100vh;
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+  justify-content: center;
+
+  padding: 60px;
+
+  text-align: center;
+}
+
+.loading-title {
+  color: var(--ink-900);
+
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.loading-subtitle {
+  margin-top: 7px;
+
+  color: var(--ink-500);
+
+  font-size: 13px;
+}
+
+.error {
+  gap: 8px;
+
+  color: var(--danger-700);
+}
+
+.error strong {
+  font-size: 17px;
+}
+
+.error span {
+  font-size: 13px;
+}
+
+/* =========================================================
+   RESPONSIVE — 1100px
+========================================================= */
+
+@media (max-width: 1100px) {
+  .filters {
+    grid-template-columns:
+      1.5fr
+      1fr
+      1fr
+      1fr
+      1fr
+      auto;
+  }
+
+  .execution-header {
+    grid-template-columns: 240px minmax(0, 1fr);
+  }
+}
+
+/* =========================================================
+   RESPONSIVE — 900px
+========================================================= */
+
+@media (max-width: 900px) {
+  .metrics {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .content-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .filters {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .search-group {
+    grid-column: span 2;
+  }
+
+  main {
+    padding: 24px;
+  }
+
+  .header {
+    padding: 0 24px;
+  }
+
+  .evaluation-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .evaluation-details {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .execution-header {
+    grid-template-columns: 1fr;
+
+    gap: 16px;
+  }
+
+  .execution-header > div:first-child {
+    text-align: left;
+  }
+
+  .event-row {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+
+    gap: 16px;
+  }
+
+  .event-row > div:not(:first-child) {
+    text-align: left;
+  }
+}
+
+/* =========================================================
+   RESPONSIVE — 600px
+========================================================= */
+
+@media (max-width: 600px) {
+  .metrics {
+    grid-template-columns: 1fr;
+  }
+
+  .header {
+    height: auto;
+
+    min-height: 82px;
+
+    padding: 18px 20px;
+
+    gap: 15px;
+  }
+
+  .header h1 {
+    font-size: 20px;
+  }
+
+  main {
+    padding: 20px;
+  }
+
+  .filters {
+    grid-template-columns: 1fr;
+  }
+
+  .search-group {
+    grid-column: auto;
+  }
+
+  .results-bar {
+    align-items: flex-start;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    gap: 6px;
+
+    padding: 10px 18px;
+  }
+
+  .evaluation-panel {
+    width: calc(100vw - 24px);
+
+    max-height: 90vh;
+
+    border-radius: 11px;
+  }
+
+  .evaluation-header {
+    padding: 17px 18px;
+  }
+
+  .evaluation-summary {
+    grid-template-columns: 1fr;
+  }
+
+  .evaluation-grid,
+  .evaluation-details {
+    grid-template-columns: 1fr;
+
+    padding-left: 18px;
+    padding-right: 18px;
+  }
+
+  .evaluation-reason {
+    margin-left: 18px;
+    margin-right: 18px;
+  }
+
+  .execution-section {
+    margin-left: 18px;
+    margin-right: 18px;
+  }
+
+  .execution-header {
+    padding: 18px;
+  }
+
+  .execution-success {
+    grid-template-columns: 1fr 1fr;
+
+    margin-left: 18px;
+    margin-right: 18px;
+  }
+
+  .execution-success > div:nth-child(2) {
+    border-right: 0;
+  }
+
+  .execution-success > div:nth-child(-n + 2) {
+    border-bottom: 1px solid rgba(15, 157, 107, 0.22);
+  }
+
+  .events-section {
+    padding-left: 18px;
+    padding-right: 18px;
+  }
+
+  .events-header {
+    align-items: flex-start;
+
+    flex-direction: column;
+
+    gap: 10px;
+  }
+
+  .event-row {
+    grid-template-columns: 1fr;
+  }
+
+  .pagination {
+    flex-wrap: wrap;
+  }
+}
+
+/* =========================================================
+   RESPONSIVE — 500px
+========================================================= */
+
+@media (max-width: 500px) {
+  .page-button {
+    padding: 0 9px;
+  }
+
+  .page-numbers {
+    gap: 3px;
+  }
+
+  .page-number {
+    width: 30px;
+  }
+
+  .evaluation-summary > div {
+    padding: 17px 18px;
+  }
+
+  .execution-success {
+    grid-template-columns: 1fr;
+  }
+
+  .execution-success > div {
+    border-right: 0;
+
+    border-bottom: 1px solid rgba(15, 157, 107, 0.22);
+  }
+
+  .execution-success > div:last-child {
+    border-bottom: 0;
+  }
+}
