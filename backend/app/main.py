@@ -361,12 +361,11 @@ def dashboard_summary():
         # FAILED PAYMENTS
         # ----------------------------------------------------
 
-        payments = (
-            db.query(Payment)
-            .filter(
-                Payment.status == "FAILED"
-            )
-            .all()
+        payments = db.query(Payment).all()
+
+        print(
+            f"SUMMARY STATUS VALUES: {[p.status for p in payments]}",
+            flush=True,
         )
 
         print(
@@ -538,11 +537,12 @@ def list_failed_payments():
         # FAILED PAYMENTS
         # ----------------------------------------------------
 
-        payments = db.query(Payment).all()
-
-        print(
-             f"SUMMARY STATUS VALUES: {[p.status for p in payments]}",
-             flush=True,
+        payments = (
+            db.query(Payment)
+            .filter(
+                Payment.status == "FAILED"
+            )
+            .all()
         )
 
         print(
