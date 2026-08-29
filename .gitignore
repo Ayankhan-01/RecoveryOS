@@ -10,7 +10,7 @@ venv/
 .pytest_cache/
 
 # ML / generated artifacts
-*.joblib
+
 
 # Node
 node_modules/
