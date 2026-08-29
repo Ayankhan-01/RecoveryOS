@@ -541,7 +541,7 @@ def list_failed_payments():
         payments = (
             db.query(Payment)
             .filter(
-                Payment.status == "FAILED"
+                Payment.status == "failed"
             )
             .order_by(
                 Payment.id
