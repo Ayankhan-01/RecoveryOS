@@ -5,6 +5,7 @@ import pandas as pd
 
 
 MODEL_PATH = os.path.join(
+    BASE_DIR,
     "ml",
     "recovery_model.joblib",
 )
