@@ -363,7 +363,7 @@ def dashboard_summary():
 
         payments = (
             db.query(Payment)
-            .filter(Payment.status == "failed")
+            .filter(Payment.status == "FAILED")
             .all()
         )
 
