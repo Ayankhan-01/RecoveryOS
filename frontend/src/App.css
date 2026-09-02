@@ -1,61 +1,64 @@
 /* =========================================================
    DESIGN TOKENS
-   RecoveryOS — fintech decision-engine palette.
-   Ink navy for text/surfaces, electric blue for action,
-   money-green for recovered value, amber/red reserved
-   strictly for risk signals (never decoration).
+   RecoveryOS — Razorpay Buildathon aesthetic.
+   Near-black surfaces, warm gold accent, hairline dividers
+   instead of heavy shadows, uppercase tracked eyebrow labels.
 ========================================================= */
 
 :root {
   /* Surfaces */
-  --bg: #EEF1F7;
-  --surface: #FFFFFF;
-  --surface-sunken: #F6F8FC;
-  --surface-sunken-2: #F1F4F9;
+  --bg: #0A0A0D;
+  --surface: #131317;
+  --surface-2: #17171C;
+  --surface-3: #1C1C22;
 
-  /* Ink */
-  --ink-900: #0B1220;
-  --ink-700: #1E293B;
-  --ink-500: #55627A;
-  --ink-400: #7C879C;
-  --ink-300: #A6B0C1;
-  --ink-200: #DDE3ED;
-  --ink-100: #E9EDF4;
+  /* Borders */
+  --border: rgba(255, 255, 255, 0.08);
+  --border-strong: rgba(255, 255, 255, 0.16);
 
-  /* Brand / action */
-  --brand-600: #2153C7;
-  --brand-500: #2F6FED;
-  --brand-100: #E4ECFE;
-  --brand-050: #EFF4FF;
+  /* Ink (warm-tinted, not pure gray) */
+  --ink-900: #F5F4F1;
+  --ink-700: #C9C6D1;
+  --ink-500: #8B8894;
+  --ink-400: #6E6B78;
+  --ink-300: #504E58;
+  --ink-200: #38363E;
+
+  /* Accent — warm gold */
+  --accent-700: #B8863C;
+  --accent-500: #D8A657;
+  --accent-400: #F0C077;
+  --accent-soft: rgba(216, 166, 87, 0.14);
+  --accent-soft-border: rgba(216, 166, 87, 0.32);
 
   /* Semantic */
-  --success-700: #0B7A54;
-  --success-500: #0F9D6B;
-  --success-100: #DCF5EA;
+  --success-500: #58D69A;
+  --success-soft: rgba(88, 214, 154, 0.12);
+  --success-border: rgba(88, 214, 154, 0.3);
 
-  --warning-700: #92400E;
-  --warning-500: #B45309;
-  --warning-100: #FCEEDA;
+  --warning-500: #E3A63E;
+  --warning-soft: rgba(227, 166, 62, 0.12);
+  --warning-border: rgba(227, 166, 62, 0.3);
 
-  --danger-700: #8F241A;
-  --danger-500: #B42318;
-  --danger-100: #FBE4E1;
+  --danger-500: #F0575D;
+  --danger-soft: rgba(240, 87, 93, 0.12);
+  --danger-border: rgba(240, 87, 93, 0.3);
 
-  --violet-700: #5B3AA6;
-  --violet-500: #7047C2;
-  --violet-100: #EEE7FB;
+  --violet-500: #B18CF0;
+  --violet-soft: rgba(177, 140, 240, 0.12);
+  --violet-border: rgba(177, 140, 240, 0.3);
 
-  /* Elevation */
-  --shadow-xs: 0 1px 2px rgba(11, 18, 32, 0.05);
-  --shadow-sm: 0 1px 3px rgba(11, 18, 32, 0.06), 0 1px 2px rgba(11, 18, 32, 0.04);
-  --shadow-md: 0 6px 16px rgba(11, 18, 32, 0.08), 0 2px 4px rgba(11, 18, 32, 0.04);
-  --shadow-lg: 0 20px 48px rgba(11, 18, 32, 0.16), 0 4px 12px rgba(11, 18, 32, 0.06);
-  --shadow-focus: 0 0 0 3px rgba(47, 111, 237, 0.18);
+  /* Elevation — hairlines over shadows, matches the brief's site */
+  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.35);
+  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.45);
+  --shadow-lg: 0 24px 64px rgba(0, 0, 0, 0.6);
+  --shadow-focus: 0 0 0 3px rgba(216, 166, 87, 0.28);
 
   /* Radius */
-  --r-sm: 8px;
-  --r-md: 12px;
-  --r-lg: 16px;
+  --r-sm: 6px;
+  --r-md: 10px;
+  --r-lg: 14px;
 }
 
 /* =========================================================
@@ -83,10 +86,15 @@ body {
     "Segoe UI",
     sans-serif;
 
-  background: var(--bg);
-  color: var(--ink-900);
+  letter-spacing: 0.1px;
 
+  background: var(--bg);
+  color: var(--ink-700);
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 button,
@@ -113,19 +121,47 @@ select:focus-visible,
 
 /* =========================================================
    APP
+   Flex column so the signature line sits at the true
+   bottom of the page — either after content, or pinned to
+   the viewport edge on short pages.
 ========================================================= */
 
 .app {
   min-height: 100vh;
+
+  display: flex;
+  flex-direction: column;
+
   background: var(--bg);
+}
+
+.app::after {
+  content: "@Designed and Developed by Ayan";
+
+  flex-shrink: 0;
+
+  padding: 22px 40px 28px;
+
+  border-top: 1px solid var(--border);
+
+  color: var(--ink-400);
+
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: capitalize;
+  text-align: center;
 }
 
 /* =========================================================
    HEADER
+   Big, tight, confident — the buildathon page's headline
+   register, not a dashboard app-bar.
 ========================================================= */
 
 .header {
   height: 82px;
+  flex-shrink: 0;
 
   padding: 0 40px;
 
@@ -133,39 +169,27 @@ select:focus-visible,
   align-items: center;
   justify-content: space-between;
 
-  background: var(--ink-900);
-  border-bottom: 1px solid var(--ink-900);
-  box-shadow: var(--shadow-sm);
-
-  position: relative;
-}
-
-.header::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: -3px;
-  height: 3px;
-  background: linear-gradient(90deg, var(--brand-500) 0%, var(--success-500) 100%);
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
 }
 
 .header h1 {
   margin: 0;
 
-  color: #FFFFFF;
+  color: var(--ink-900);
 
-  font-size: 22px;
+  font-size: 23px;
   font-weight: 700;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.02em;
 }
 
 .header p {
   margin: 4px 0 0;
 
-  color: #9AA7C2;
+  color: var(--ink-400);
 
-  font-size: 13px;
+  font-size: 12.5px;
+  letter-spacing: 0.02em;
 }
 
 .status {
@@ -175,24 +199,26 @@ select:focus-visible,
 
   padding: 7px 14px;
 
-  background: rgba(15, 157, 107, 0.14);
-  border: 1px solid rgba(15, 157, 107, 0.3);
+  background: var(--success-soft);
+  border: 1px solid var(--success-border);
   border-radius: 999px;
 
-  color: #6FE3B4;
+  color: var(--success-500);
 
-  font-size: 12px;
-  font-weight: 600;
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
 }
 
 .status-dot {
-  width: 7px;
-  height: 7px;
+  width: 6px;
+  height: 6px;
 
   border-radius: 50%;
 
   background: var(--success-500);
-  box-shadow: 0 0 0 3px rgba(15, 157, 107, 0.25);
+  box-shadow: 0 0 0 3px rgba(88, 214, 154, 0.22);
 }
 
 /* =========================================================
@@ -200,6 +226,8 @@ select:focus-visible,
 ========================================================= */
 
 main {
+  flex: 1 0 auto;
+
   width: 100%;
   max-width: 1500px;
 
@@ -216,29 +244,28 @@ main {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
 
-  gap: 18px;
+  gap: 16px;
 }
 
 .metric,
 .card {
   background: var(--surface);
 
-  border: 1px solid var(--ink-100);
+  border: 1px solid var(--border);
   border-radius: var(--r-md);
-  box-shadow: var(--shadow-sm);
 }
 
 .metric {
   position: relative;
 
-  padding: 22px 22px 22px 26px;
+  padding: 22px 22px 22px 24px;
   overflow: hidden;
 
-  transition: box-shadow 0.18s ease, transform 0.18s ease;
+  transition: border-color 0.18s ease, transform 0.18s ease;
 }
 
 .metric:hover {
-  box-shadow: var(--shadow-md);
+  border-color: var(--border-strong);
   transform: translateY(-1px);
 }
 
@@ -248,17 +275,15 @@ main {
   top: 0;
   left: 0;
   bottom: 0;
-  width: 4px;
-  background: var(--brand-500);
+  width: 3px;
+  background: var(--accent-500);
 }
 
-/* Semantic left-accent per metric: failed count (danger),
-   failed value (danger), avg probability (amber), expected
-   recovery (money-green) — order matches the dashboard. */
+/* Semantic left-accent per metric card, in dashboard order */
 
 .metrics .metric:nth-child(1)::before { background: var(--danger-500); }
 .metrics .metric:nth-child(2)::before { background: var(--danger-500); }
-.metrics .metric:nth-child(3)::before { background: var(--warning-500); }
+.metrics .metric:nth-child(3)::before { background: var(--accent-500); }
 .metrics .metric:nth-child(4)::before { background: var(--success-500); }
 
 .metric span {
@@ -266,11 +291,11 @@ main {
 
   margin-bottom: 10px;
 
-  color: var(--ink-500);
+  color: var(--ink-400);
 
-  font-size: 12.5px;
-  font-weight: 600;
-  letter-spacing: 0.01em;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.09em;
   text-transform: uppercase;
 }
 
@@ -279,9 +304,9 @@ main {
 
   color: var(--ink-900);
 
-  font-size: 27px;
-  font-weight: 750;
-  letter-spacing: -0.01em;
+  font-size: 26px;
+  font-weight: 700;
+  letter-spacing: -0.015em;
   font-variant-numeric: tabular-nums;
 }
 
@@ -293,9 +318,9 @@ main {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
 
-  gap: 18px;
+  gap: 16px;
 
-  margin-top: 18px;
+  margin-top: 16px;
 }
 
 .card {
@@ -304,6 +329,8 @@ main {
 
 /* =========================================================
    CARD HEADER
+   Eyebrow-style: small, gold, tracked — echoes "TRACK 01",
+   "WHY NOW" labels from the reference site.
 ========================================================= */
 
 .card-header {
@@ -311,25 +338,26 @@ main {
 
   background: var(--surface);
 
-  border-bottom: 1px solid var(--ink-100);
+  border-bottom: 1px solid var(--border);
 }
 
 .card-header h2 {
   margin: 0;
 
-  color: var(--ink-900);
+  color: var(--accent-500);
 
-  font-size: 15px;
+  font-size: 11.5px;
   font-weight: 700;
-  letter-spacing: -0.005em;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
 }
 
 .card-header p {
-  margin: 4px 0 0;
+  margin: 5px 0 0;
 
-  color: var(--ink-400);
+  color: var(--ink-500);
 
-  font-size: 12px;
+  font-size: 12.5px;
 }
 
 /* =========================================================
@@ -343,7 +371,7 @@ main {
 
   padding: 15px 22px;
 
-  border-bottom: 1px solid var(--surface-sunken-2);
+  border-bottom: 1px solid var(--border);
 
   color: var(--ink-700);
 
@@ -353,7 +381,7 @@ main {
 }
 
 .action-row:hover {
-  background: var(--surface-sunken);
+  background: var(--surface-2);
 }
 
 .action-row strong {
@@ -404,11 +432,11 @@ main {
   margin: 14px 22px 0;
   padding: 12px 14px;
 
-  background: var(--brand-050);
-  border: 1px solid var(--brand-100);
+  background: var(--accent-soft);
+  border: 1px solid var(--accent-soft-border);
   border-radius: var(--r-sm);
 
-  color: var(--brand-600);
+  color: var(--accent-400);
 
   font-size: 12px;
   font-weight: 500;
@@ -420,7 +448,7 @@ main {
 ========================================================= */
 
 .payments-card {
-  margin-top: 18px;
+  margin-top: 16px;
 }
 
 .payments-card .card-header {
@@ -446,9 +474,9 @@ main {
 
   padding: 16px 22px;
 
-  background: var(--surface-sunken);
+  background: var(--surface-2);
 
-  border-bottom: 1px solid var(--ink-100);
+  border-bottom: 1px solid var(--border);
 }
 
 .filter-group {
@@ -462,9 +490,9 @@ main {
 
   color: var(--ink-500);
 
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.01em;
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.07em;
   text-transform: uppercase;
 }
 
@@ -477,7 +505,7 @@ main {
 
   background: var(--surface);
 
-  border: 1px solid var(--ink-200);
+  border: 1px solid var(--border-strong);
   border-radius: 7px;
 
   outline: none;
@@ -493,13 +521,13 @@ main {
 
 .filter-group input:focus,
 .filter-group select:focus {
-  border-color: var(--brand-500);
+  border-color: var(--accent-500);
 
   box-shadow: var(--shadow-focus);
 }
 
 .filter-group input::placeholder {
-  color: var(--ink-300);
+  color: var(--ink-400);
 }
 
 /* =========================================================
@@ -510,7 +538,7 @@ main {
   appearance: auto;
   -webkit-appearance: auto;
 
-  color-scheme: light;
+  color-scheme: dark;
 
   padding-right: 8px;
 }
@@ -522,8 +550,6 @@ main {
   opacity: 1;
 
   margin: 0;
-
-  filter: grayscale(1) contrast(2);
 }
 
 @-moz-document url-prefix() {
@@ -545,7 +571,7 @@ main {
 
   background: var(--surface);
 
-  border: 1px solid var(--ink-200);
+  border: 1px solid var(--border-strong);
   border-radius: 7px;
 
   color: var(--ink-500);
@@ -562,7 +588,7 @@ main {
 }
 
 .clear-button:hover:not(:disabled) {
-  background: var(--surface-sunken-2);
+  background: var(--surface-3);
 
   border-color: var(--ink-300);
 
@@ -570,7 +596,7 @@ main {
 }
 
 .clear-button:disabled {
-  opacity: 0.45;
+  opacity: 0.4;
 
   cursor: not-allowed;
 }
@@ -590,29 +616,31 @@ main {
 
   background: var(--surface);
 
-  border-bottom: 1px solid var(--ink-100);
+  border-bottom: 1px solid var(--border);
 
-  color: var(--ink-400);
+  color: var(--ink-500);
 
   font-size: 12.5px;
 }
 
 .results-bar strong {
-  color: var(--ink-700);
+  color: var(--ink-900);
   font-variant-numeric: tabular-nums;
 }
 
 .filtered-label {
   padding: 5px 10px;
 
-  background: var(--brand-050);
+  background: var(--accent-soft);
 
   border-radius: 999px;
 
-  color: var(--brand-600);
+  color: var(--accent-400);
 
-  font-size: 11px;
+  font-size: 10.5px;
   font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
 }
 
 /* =========================================================
@@ -624,7 +652,7 @@ main {
 
   overflow-x: auto;
 
-  border-top: 1px solid var(--ink-100);
+  border-top: 1px solid var(--border);
 
   scrollbar-width: thin;
   scrollbar-color: var(--ink-300) transparent;
@@ -644,20 +672,20 @@ main {
 ========================================================= */
 
 .table-wrapper th {
-  height: 46px;
+  height: 44px;
 
   padding: 0 18px;
 
-  background: var(--ink-900);
+  background: var(--surface);
 
-  border-bottom: 1px solid var(--ink-900);
+  border-bottom: 1px solid var(--border-strong);
 
-  color: #AEB9D1;
+  color: var(--ink-400);
 
   font-size: 10.5px;
-  font-weight: 650;
+  font-weight: 700;
 
-  letter-spacing: 0.06em;
+  letter-spacing: 0.08em;
 
   text-align: left;
   text-transform: uppercase;
@@ -674,13 +702,13 @@ main {
 ========================================================= */
 
 .table-wrapper td {
-  height: 58px;
+  height: 56px;
 
   padding: 0 18px;
 
   background: var(--surface);
 
-  border-bottom: 1px solid var(--ink-100);
+  border-bottom: 1px solid var(--border);
 
   color: var(--ink-700);
 
@@ -693,7 +721,7 @@ main {
 }
 
 .table-wrapper tbody tr:nth-child(even) td {
-  background: var(--surface-sunken);
+  background: var(--surface-2);
 }
 
 .table-wrapper td:first-child {
@@ -703,17 +731,9 @@ main {
 
 /* =========================================================
    TABLE COLUMN WIDTHS + ALIGNMENT
+   Sized to actual content, not an even split — closes the
+   dead-gap problem on right-aligned numeric columns.
 ========================================================= */
-
-/*
-   Widths sized to actual content, not an even split.
-   PAY_000032 / CUST_03432 are short and fixed-length;
-   ₹1,800.71 and 64.7% are short numerics; "Authentication
-   Failed" is the longest string in the table and gets the
-   room. This is what closes the dead gap that opened up
-   whenever a right-aligned numeric column was wider than
-   its content.
-*/
 
 .table-wrapper th:nth-child(1),
 .table-wrapper td:nth-child(1) {
@@ -765,7 +785,7 @@ main {
 
   background: transparent;
 
-  color: var(--brand-600);
+  color: var(--accent-400);
 
   font: inherit;
   font-size: 13px;
@@ -777,7 +797,7 @@ main {
 }
 
 .payment-link:hover {
-  color: var(--brand-500);
+  color: var(--accent-500);
   text-decoration: underline;
 }
 
@@ -801,7 +821,7 @@ main {
   align-items: center;
   gap: 6px;
 
-  color: var(--danger-700);
+  color: var(--danger-500);
 
   font-size: 12px;
   font-weight: 600;
@@ -836,7 +856,7 @@ main {
 }
 
 .table-wrapper tbody tr:hover td {
-  background: var(--brand-050);
+  background: var(--accent-soft);
 }
 
 /* =========================================================
@@ -890,8 +910,6 @@ main {
 
 /* =========================================================
    BADGES
-   Semantic colors: link = brand, reminder = amber,
-   retry = violet, no-action = neutral.
 ========================================================= */
 
 .badge {
@@ -906,29 +924,33 @@ main {
 
   font-size: 10.5px;
   font-weight: 700;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.03em;
   text-transform: uppercase;
 
   white-space: nowrap;
 }
 
 .badge-send-payment-link {
-  background: var(--brand-100);
-  color: var(--brand-600);
+  background: var(--accent-soft);
+  border: 1px solid var(--accent-soft-border);
+  color: var(--accent-400);
 }
 
 .badge-send-reminder {
-  background: var(--warning-100);
-  color: var(--warning-700);
+  background: var(--warning-soft);
+  border: 1px solid var(--warning-border);
+  color: var(--warning-500);
 }
 
 .badge-offer-retry {
-  background: var(--violet-100);
-  color: var(--violet-700);
+  background: var(--violet-soft);
+  border: 1px solid var(--violet-border);
+  color: var(--violet-500);
 }
 
 .badge-no-action {
-  background: var(--ink-100);
+  background: var(--surface-3);
+  border: 1px solid var(--border-strong);
   color: var(--ink-500);
 }
 
@@ -948,7 +970,7 @@ main {
 
   background: var(--surface);
 
-  border-top: 1px solid var(--ink-100);
+  border-top: 1px solid var(--border);
 }
 
 .page-numbers {
@@ -965,7 +987,7 @@ main {
 
   background: var(--surface);
 
-  border: 1px solid var(--ink-200);
+  border: 1px solid var(--border-strong);
   border-radius: 7px;
 
   color: var(--ink-500);
@@ -991,7 +1013,7 @@ main {
 
 .page-button:hover:not(:disabled),
 .page-number:hover:not(.active) {
-  background: var(--surface-sunken-2);
+  background: var(--surface-3);
 
   border-color: var(--ink-300);
 
@@ -999,17 +1021,15 @@ main {
 }
 
 .page-number.active {
-  background: var(--brand-500);
+  background: var(--accent-500);
 
-  border-color: var(--brand-500);
+  border-color: var(--accent-500);
 
-  color: #FFFFFF;
-
-  box-shadow: var(--shadow-sm);
+  color: #171008;
 }
 
 .page-button:disabled {
-  opacity: 0.4;
+  opacity: 0.35;
 
   cursor: not-allowed;
 }
@@ -1017,7 +1037,7 @@ main {
 .page-ellipsis {
   width: 24px;
 
-  color: var(--ink-300);
+  color: var(--ink-400);
 
   font-size: 12px;
 
@@ -1046,11 +1066,11 @@ main {
 
   background: var(--surface);
 
-  border: 1px solid var(--ink-100);
+  border: 1px solid var(--border-strong);
   border-radius: var(--r-lg);
 
   box-shadow:
-    0 0 0 100vmax rgba(11, 18, 32, 0.55),
+    0 0 0 100vmax rgba(0, 0, 0, 0.7),
     var(--shadow-lg);
 
   scrollbar-width: thin;
@@ -1098,16 +1118,16 @@ main {
 
   padding: 20px 24px;
 
-  background: var(--ink-900);
+  background: var(--surface-2);
 
-  border-bottom: 1px solid var(--ink-900);
+  border-bottom: 1px solid var(--border);
   border-radius: var(--r-lg) var(--r-lg) 0 0;
 }
 
 .evaluation-header h2 {
   margin: 0;
 
-  color: #FFFFFF;
+  color: var(--ink-900);
 
   font-size: 16px;
   font-weight: 700;
@@ -1116,7 +1136,7 @@ main {
 .evaluation-header p {
   margin: 4px 0 0;
 
-  color: #9AA7C2;
+  color: var(--ink-500);
 
   font-size: 12px;
   font-variant-numeric: tabular-nums;
@@ -1130,12 +1150,12 @@ main {
   width: 32px;
   height: 32px;
 
-  background: rgba(255, 255, 255, 0.08);
+  background: var(--surface);
 
-  border: 1px solid rgba(255, 255, 255, 0.16);
+  border: 1px solid var(--border-strong);
   border-radius: 7px;
 
-  color: #C6CEE0;
+  color: var(--ink-500);
 
   font-size: 19px;
   line-height: 1;
@@ -1149,11 +1169,11 @@ main {
 }
 
 .close-button:hover {
-  background: rgba(255, 255, 255, 0.16);
+  background: var(--surface-3);
 
-  border-color: rgba(255, 255, 255, 0.24);
+  border-color: var(--ink-300);
 
-  color: #FFFFFF;
+  color: var(--ink-900);
 }
 
 /* =========================================================
@@ -1174,13 +1194,11 @@ main {
 }
 
 .evaluation-error {
-  color: var(--danger-700);
+  color: var(--danger-500);
 }
 
 /* =========================================================
    EVALUATION SUMMARY
-   Amount / Hybrid Probability / Recommended Action —
-   the three numbers a judge reads first.
 ========================================================= */
 
 .evaluation-summary {
@@ -1190,9 +1208,9 @@ main {
 
   gap: 1px;
 
-  background: var(--ink-100);
+  background: var(--border);
 
-  border-bottom: 1px solid var(--ink-100);
+  border-bottom: 1px solid var(--border);
 }
 
 .evaluation-summary > div {
@@ -1206,7 +1224,7 @@ main {
 }
 
 .evaluation-summary > div:nth-child(2) {
-  background: var(--brand-050);
+  background: var(--accent-soft);
 }
 
 .evaluation-summary span,
@@ -1223,7 +1241,7 @@ main {
 
   font-size: 10.5px;
   font-weight: 700;
-  letter-spacing: 0.03em;
+  letter-spacing: 0.07em;
   text-transform: uppercase;
 }
 
@@ -1239,13 +1257,11 @@ main {
 }
 
 .evaluation-summary > div:nth-child(2) strong {
-  color: var(--brand-600);
+  color: var(--accent-400);
 }
 
 /* =========================================================
    EVALUATION GRID
-   Rules / ML / Expected Value / Cost — color-coded so the
-   hybrid-model story reads at a glance, not just in text.
 ========================================================= */
 
 .evaluation-grid {
@@ -1261,8 +1277,8 @@ main {
 .evaluation-card {
   padding: 16px;
 
-  background: var(--surface-sunken);
-  border: 1px solid var(--ink-100);
+  background: var(--surface-2);
+  border: 1px solid var(--border);
   border-radius: var(--r-sm);
 
   text-align: center;
@@ -1277,7 +1293,7 @@ main {
 }
 
 .evaluation-grid .evaluation-card:nth-child(1) strong { color: var(--violet-500); }
-.evaluation-grid .evaluation-card:nth-child(2) strong { color: var(--brand-500); }
+.evaluation-grid .evaluation-card:nth-child(2) strong { color: var(--accent-400); }
 .evaluation-grid .evaluation-card:nth-child(3) strong { color: var(--success-500); }
 .evaluation-grid .evaluation-card:nth-child(4) strong { color: var(--warning-500); }
 
@@ -1313,8 +1329,8 @@ main {
 
   padding: 16px 18px;
 
-  background: var(--surface-sunken);
-  border-left: 3px solid var(--brand-500);
+  background: var(--surface-2);
+  border-left: 3px solid var(--accent-500);
   border-radius: 0 var(--r-sm) var(--r-sm) 0;
 
   text-align: left;
@@ -1345,9 +1361,8 @@ main {
 
   background: var(--surface);
 
-  border: 1px solid var(--ink-100);
+  border: 1px solid var(--border);
   border-radius: var(--r-md);
-  box-shadow: var(--shadow-xs);
 }
 
 .execution-header {
@@ -1361,8 +1376,8 @@ main {
 
   padding: 22px;
 
-  background: var(--surface-sunken);
-  border-bottom: 1px solid var(--ink-100);
+  background: var(--surface-2);
+  border-bottom: 1px solid var(--border);
 }
 
 .execution-header > div:first-child {
@@ -1400,29 +1415,26 @@ main {
 
   padding: 0 18px;
 
-  background: var(--brand-500);
+  background: var(--accent-500);
 
   border: 0;
   border-radius: 8px;
-  box-shadow: var(--shadow-sm);
 
-  color: #FFFFFF;
+  color: #171008;
 
   font-size: 12.5px;
   font-weight: 700;
-  letter-spacing: 0.01em;
+  letter-spacing: 0.02em;
 
   cursor: pointer;
 
   transition:
     background 0.15s ease,
-    box-shadow 0.15s ease,
     transform 0.1s ease;
 }
 
 .execute-button:hover:not(:disabled) {
-  background: var(--brand-600);
-  box-shadow: var(--shadow-md);
+  background: var(--accent-400);
   transform: translateY(-1px);
 }
 
@@ -1431,10 +1443,9 @@ main {
 }
 
 .execute-button:disabled {
-  background: var(--ink-200);
+  background: var(--surface-3);
 
   color: var(--ink-400);
-  box-shadow: none;
 
   cursor: not-allowed;
 }
@@ -1448,7 +1459,7 @@ main {
 
   padding: 14px;
 
-  background: var(--surface-sunken);
+  background: var(--surface-2);
   border-radius: var(--r-sm);
 
   color: var(--ink-500);
@@ -1467,11 +1478,11 @@ main {
 
   padding: 12px 14px;
 
-  background: var(--danger-100);
-  border: 1px solid rgba(180, 35, 24, 0.25);
+  background: var(--danger-soft);
+  border: 1px solid var(--danger-border);
   border-radius: 7px;
 
-  color: var(--danger-700);
+  color: #FF8A8E;
 
   font-size: 12px;
   font-weight: 500;
@@ -1490,8 +1501,8 @@ main {
 
   overflow: hidden;
 
-  background: var(--success-100);
-  border: 1px solid rgba(15, 157, 107, 0.3);
+  background: var(--success-soft);
+  border: 1px solid var(--success-border);
   border-radius: var(--r-sm);
 }
 
@@ -1500,7 +1511,7 @@ main {
 
   padding: 16px 12px;
 
-  border-right: 1px solid rgba(15, 157, 107, 0.22);
+  border-right: 1px solid var(--success-border);
 
   text-align: center;
 }
@@ -1510,14 +1521,14 @@ main {
 }
 
 .execution-success span {
-  color: var(--success-700);
-  opacity: 0.75;
+  color: var(--success-500);
+  opacity: 0.8;
 }
 
 .execution-success strong {
   display: block;
 
-  color: var(--success-700);
+  color: var(--success-500);
 
   font-size: 13.5px;
   font-weight: 750;
@@ -1539,7 +1550,7 @@ main {
 
   padding: 18px 0;
 
-  border-top: 1px solid var(--ink-100);
+  border-top: 1px solid var(--border);
 }
 
 .events-header > div > span {
@@ -1554,7 +1565,7 @@ main {
 .events-header p {
   margin: 4px 0 0;
 
-  color: var(--ink-400);
+  color: var(--ink-500);
 
   font-size: 12px;
 }
@@ -1573,8 +1584,8 @@ main {
 .events-empty {
   padding: 28px 20px;
 
-  background: var(--surface-sunken);
-  border: 1px dashed var(--ink-200);
+  background: var(--surface-2);
+  border: 1px dashed var(--border-strong);
   border-radius: var(--r-sm);
 
   color: var(--ink-400);
@@ -1611,15 +1622,14 @@ main {
 
   background: var(--surface);
 
-  border: 1px solid var(--ink-100);
+  border: 1px solid var(--border);
   border-radius: var(--r-sm);
-  box-shadow: var(--shadow-xs);
 
-  transition: box-shadow 0.15s ease;
+  transition: border-color 0.15s ease;
 }
 
 .event-row:hover {
-  box-shadow: var(--shadow-sm);
+  border-color: var(--border-strong);
 }
 
 .event-row > div {
@@ -1719,7 +1729,7 @@ html::-webkit-scrollbar-thumb:hover {
 .error {
   gap: 8px;
 
-  color: var(--danger-700);
+  color: var(--danger-500);
 }
 
 .error strong {
@@ -1905,7 +1915,7 @@ html::-webkit-scrollbar-thumb:hover {
   }
 
   .execution-success > div:nth-child(-n + 2) {
-    border-bottom: 1px solid rgba(15, 157, 107, 0.22);
+    border-bottom: 1px solid var(--success-border);
   }
 
   .events-section {
@@ -1927,6 +1937,11 @@ html::-webkit-scrollbar-thumb:hover {
 
   .pagination {
     flex-wrap: wrap;
+  }
+
+  .app::after {
+    padding: 18px 20px 22px;
+    font-size: 10px;
   }
 }
 
@@ -1958,7 +1973,7 @@ html::-webkit-scrollbar-thumb:hover {
   .execution-success > div {
     border-right: 0;
 
-    border-bottom: 1px solid rgba(15, 157, 107, 0.22);
+    border-bottom: 1px solid var(--success-border);
   }
 
   .execution-success > div:last-child {
